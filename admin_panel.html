@@ -136,20 +136,19 @@
 
     </div>
 
-    <!-- NEW FIREBASE WEB SDK FOR SACHIN-PHOTO-BALA -->
+    <!-- FIREBASE WEB SDK SCRIPT MODULE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, orderBy, query, serverTimestamp, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
-          apiKey: "AIzaSyB8jjoiPRKGDZIQD_jIn4M7PW_cRKc4zZE",
-          authDomain: "sachin-photo-bala.firebaseapp.com",
-          databaseURL: "https://sachin-photo-bala-default-rtdb.firebaseio.com",
-          projectId: "sachin-photo-bala",
-          storageBucket: "sachin-photo-bala.firebasestorage.app",
-          messagingSenderId: "503786219689",
-          appId: "1:503786219689:web:513c95ec22aad53adc61b8",
-          measurementId: "G-6T5Z80J93X"
+            apiKey: "AIzaSyC_Zz7F7N4SDGej4vq4HtOuijYCqd3KTMo",
+            authDomain: "b-pharm-all-in-one.firebaseapp.com",
+            databaseURL: "https://b-pharm-all-in-one-default-rtdb.firebaseio.com",
+            projectId: "b-pharm-all-in-one",
+            storageBucket: "b-pharm-all-in-one.firebasestorage.app",
+            messagingSenderId: "776475646692",
+            appId: "1:776475646692:web:e96162155e7c61259aeaf1"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -272,7 +271,7 @@
             }
         }
 
-        // ADD PRODUCT 
+        // ADD PRODUCT (Now includes Photo Count)
         document.getElementById('addProductForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
