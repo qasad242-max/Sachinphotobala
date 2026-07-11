@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sachin Photo Bala | Aesthetic Photo Frames</title>
+    <title>Sachin Photo Wala | Aesthetic Photo Frames</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
@@ -20,6 +20,7 @@
 
         body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
 
+        /* Header */
         header {
             background-color: rgba(250, 247, 242, 0.95);
             padding: 15px 5%; position: sticky; top: 0; z-index: 999;
@@ -30,6 +31,7 @@
         .logo { font-family: 'Georgia', serif; font-size: 24px; font-weight: bold; color: var(--text-main); letter-spacing: 1px; }
         .logo span { color: var(--accent); }
 
+        /* Hero Section */
         .hero { padding: 40px 5% 30px 5%; text-align: center; max-width: 800px; margin: 0 auto; position: relative; }
         .hero h1 { font-family: 'Georgia', serif; font-size: 34px; font-weight: 400; margin-bottom: 15px; color: var(--text-main); line-height: 1.3; }
         .hero p { font-size: 16px; color: var(--text-muted); margin-bottom: 25px; }
@@ -40,6 +42,7 @@
             .hero p { font-size: 14px; margin-bottom: 15px; }
         }
 
+        /* Products Grid */
         .container { padding: 0 5% 80px 5%; max-width: 1200px; margin: 0 auto; }
         .section-title { font-family: 'Georgia', serif; font-size: 28px; text-align: center; margin-bottom: 40px; position: relative; }
         .section-title::after { content: ''; display: block; width: 40px; height: 3px; background-color: var(--accent); margin: 12px auto 0 auto; border-radius: 10px; }
@@ -91,6 +94,7 @@
         }
         .btn-whatsapp:hover { background-color: #128C7E; transform: scale(1.02); }
 
+        /* Floating Instagram Icon */
         .instagram-float {
             position: fixed; bottom: 30px; right: 30px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: var(--white); width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
@@ -103,6 +107,7 @@
             .instagram-float svg { width: 24px; height: 24px; }
         }
 
+        /* MODAL STYLES */
         .modal {
             display: none; position: fixed; z-index: 1001; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(44, 37, 32, 0.6);
@@ -183,7 +188,7 @@
 <body>
 
     <header>
-        <div class="logo">Sachin <span>Photo Bala 📸</span></div>
+        <div class="logo">Sachin <span>Photo Wala 📸</span></div>
     </header>
 
     <section class="hero">
@@ -191,6 +196,7 @@
         <p>Apni yaadon ko dijiye ek premium aur aesthetic look 🖼️. Hum banate hain high-quality customized photo frames jo aapke ghar ki deewaron ko aur bhi khoobsurat banayenge 💖.</p>
     </section>
 
+    <!-- Main Products Container -->
     <div class="container">
         <h2 class="section-title">Our Collection 🎨</h2>
         <div class="grid" id="product-grid">
@@ -203,8 +209,9 @@
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
     </a>
 
+    <!-- Footer Links -->
     <footer>
-        <p>&copy; 2026 <strong>Sachin Photo Bala</strong>. Handcrafted with 🤎</p>
+        <p>&copy; 2026 <strong>Sachin Photo Wala</strong>. Handcrafted with 🤎</p>
         <div class="footer-links">
             <a onclick="openPopup('tcModal')">Terms & Conditions 📜</a>
             <a onclick="openPopup('returnModal')">Return Policy 🔄</a>
@@ -248,6 +255,7 @@
                     <div class="qr-container">
                         <p>Scan to Pay <span style="color:var(--accent); font-size:18px;">₹<span id="displayAmount">0</span></span></p>
                         
+                        <!-- Dynamic UPI QR Image ID Added -->
                         <img id="dynamicUpiQr" src="" alt="Dynamic UPI QR Code">
                         
                         <br><span class="upi-id">6264688261@okbizaxis</span>
@@ -283,7 +291,7 @@
             <span class="close-btn" onclick="closePopup('tcModal')">&times;</span>
             <div class="checkout-header"><h3>Terms & Conditions 📜</h3></div>
             <div class="modal-body-scroll">
-                <h4>1. General Information</h4><p>Welcome to Sachin Photo Bala. By placing an order, you agree to the terms listed below.</p>
+                <h4>1. General Information</h4><p>Welcome to Sachin Photo Wala. By placing an order, you agree to the terms listed below.</p>
                 <h4>2. Ordering & Payment</h4><p>All orders must be prepaid via UPI QR Code and require manual UTR verification from the admin panel.</p>
                 <h4>3. Shipping & Delivery</h4><p>Orders are processed after payment verification and dispatched within 3-5 business days.</p>
                 <h4>4. Customization</h4><p>Please ensure that all photos provided for custom frames are high resolution and sent directly to us on WhatsApp after the success screen.</p>
@@ -304,20 +312,19 @@
         </div>
     </div>
 
-    <!-- NEW FIREBASE WEB SDK FOR SACHIN-PHOTO-BALA -->
+    <!-- FIREBASE WEB SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
-          apiKey: "AIzaSyB8jjoiPRKGDZIQD_jIn4M7PW_cRKc4zZE",
-          authDomain: "sachin-photo-bala.firebaseapp.com",
-          databaseURL: "https://sachin-photo-bala-default-rtdb.firebaseio.com",
-          projectId: "sachin-photo-bala",
-          storageBucket: "sachin-photo-bala.firebasestorage.app",
-          messagingSenderId: "503786219689",
-          appId: "1:503786219689:web:513c95ec22aad53adc61b8",
-          measurementId: "G-6T5Z80J93X"
+            apiKey: "AIzaSyC_Zz7F7N4SDGej4vq4HtOuijYCqd3KTMo",
+            authDomain: "b-pharm-all-in-one.firebaseapp.com",
+            databaseURL: "https://b-pharm-all-in-one-default-rtdb.firebaseio.com",
+            projectId: "b-pharm-all-in-one",
+            storageBucket: "b-pharm-all-in-one.firebasestorage.app",
+            messagingSenderId: "776475646692",
+            appId: "1:776475646692:web:e96162155e7c61259aeaf1"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -350,13 +357,14 @@
             document.getElementById('orderSummaryText').innerText = `${productName} — ₹${amount}`;
             document.getElementById('displayAmount').innerText = amount;
             
+            // Dynamic UPI Setup with Real Name and Transaction ID + MC
             const upiId = "6264688261@okbizaxis";
             const payeeName = "Sachin Singh Lodhi"; 
             const transactionId = "SPW" + Date.now(); 
             
             const upiQueryString = `pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&mc=5999&tn=Photo%20Frame%20Order&tr=${transactionId}`;
             
-            // Generate QR Code
+            // Generate QR Code only
             const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(`upi://pay?${upiQueryString}`)}`;
             document.getElementById('dynamicUpiQr').src = qrUrl;
 
@@ -443,7 +451,7 @@
 
         window.sendPhotosOnWA = function() {
             const sellerPhone = "916264688261"; 
-            const message = `Hello Sachin Photo Bala! 📸\n\nI just placed an order for *${currentProduct}*.\nMy Payment UTR No is: *${currentUtr}*.\n\nHere are the ${currentPhotoCount} photo(s) for my customized frame:`;
+            const message = `Hello Sachin Photo Wala! 📸\n\nI just placed an order for *${currentProduct}*.\nMy Payment UTR No is: *${currentUtr}*.\n\nHere are the ${currentPhotoCount} photo(s) for my customized frame:`;
             window.open(`https://wa.me/${sellerPhone}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
