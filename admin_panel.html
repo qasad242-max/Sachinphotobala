@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Admin Panel | Sachin Photo Wala</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { display: flex; background-color: #f4f7f6; color: #333; height: 100vh; overflow: hidden; flex-direction: row; }
+        
+        .sidebar { width: 260px; background-color: #2c2520; color: #fff; display: flex; flex-direction: column; transition: 0.3s; z-index: 100; }
+        .sidebar-header { padding: 25px 20px; font-size: 22px; font-weight: bold; border-bottom: 1px solid #4a3b32; font-family: 'Georgia', serif; text-align: center; }
+        .sidebar-header span { color: #b8926a; }
+        
+        .nav-links { list-style: none; padding: 20px 0; flex: 1; }
+        .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; border-left: 4px solid transparent; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+        .nav-links li:hover { background-color: #3e352f; }
+        .nav-links li.active { background-color: #4a3b32; border-left: 4px solid #b8926a; font-weight: bold; }
+
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding-bottom: 0; }
+        .top-nav { background: #fff; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 50; }
+        
+        .section-container { padding: 30px; display: none; animation: fadeIn 0.4s ease; }
+        .section-container.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .panel { background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 30px; }
+        .panel h3 { margin-bottom: 20px; color: #b8926a; font-size: 18px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; color: #555; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; transition: 0.3s; }
+        .form-group input:focus { border-color: #b8926a; }
+        
+        .btn-primary { background: #2c2520; color: #fff; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.3s; }
+        .btn-primary:hover { background: #b8926a; }
+        .btn-danger { background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.3s;}
+        .btn-success { background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;}
+
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; vertical-align: top; }
+        th { background-color: #faf7f2; color: #70645c; font-weight: 600; white-space: nowrap; }
+        
+        .customer-info strong { color: #2c2520; font-size: 15px; display: block; margin-bottom: 3px; }
+        .customer-info span { color: #777; font-size: 12px; display: block; }
+        .address-box { max-width: 250px; white-space: normal; line-height: 1.4; color: #555; }
+        
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; text-transform: uppercase; display: inline-block;}
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-verified { background: #d4edda; color: #155724; }
+        
+        .utr-text { font-family: monospace; font-size: 13px; color: #0056b3; background: #e7f1ff; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .prod-img-preview { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: fixed; bottom: 0; left: 0; flex-direction: row; justify-content: space-around; padding: 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+            .sidebar-header { display: none; } 
+            .nav-links { display: flex; padding: 0; margin: 0; width: 100%; flex-direction: row; }
+            .nav-links li { flex: 1; justify-content: center; padding: 15px 5px; border-left: none; border-bottom: 4px solid transparent; font-size: 13px; text-align: center; flex-direction: column; gap: 5px; }
+            .nav-links li.active { border-left: none; border-bottom: 4px solid #b8926a; background-color: #3e352f; }
+            .main-content { padding-bottom: 70px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">Sachin <span>Admin</span></div>
+        <ul class="nav-links">
+            <li class="nav-btn active" data-target="orders-section">📦 <span>Orders</span></li>
+            <li class="nav-btn" data-target="products-section">🏷️ <span>Products</span></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="top-nav">
+            <h2 id="page-title">Orders</h2>
+            <div style="font-size: 14px; color: #777;">Dashboard</div>
+        </div>
+
+        <!-- ORDERS SECTION -->
+        <div id="orders-section" class="section-container active">
+            <div class="panel">
+                <h3>Customer Orders</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Details</th>
+                                <th>Delivery Address</th>
+                                <th>Product Details</th>
+                                <th>UTR Number</th>
+                                <th>Action / Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr><td colspan="5" style="text-align: center; padding: 20px;">Fetching orders...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTS SECTION -->
+        <div id="products-section" class="section-container">
+            <div class="panel">
+                <h3>Add New Product</h3>
+                <form id="addProductForm">
+                    <div class="form-grid">
+                        <div class="form-group full-width"><label>Product Name</label><input type="text" id="pName" required></div>
+                        <div class="form-group"><label>Original Price (₹)</label><input type="number" id="pOriginalPrice" required></div>
+                        <div class="form-group"><label>Discount Price (₹)</label><input type="number" id="pDiscountPrice" required></div>
+                        <div class="form-group"><label>Number of Photos Required</label><input type="number" id="pPhotoCount" placeholder="e.g. 1 or 5" value="1" required min="1"></div>
+                        <div class="form-group"><label>Product Image URL</label><input type="url" id="pImage" required></div>
+                    </div>
+                    <button type="submit" class="btn-primary">List Product to Store</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Listed Products</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Image</th><th>Product Name</th><th>Photos Req.</th><th>Price</th><th>Action</th></tr></thead>
+                        <tbody id="productsListBody"><tr><td colspan="5" style="text-align: center;">Fetching products...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FIREBASE WEB SDK SCRIPT MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, orderBy, query, serverTimestamp, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_Zz7F7N4SDGej4vq4HtOuijYCqd3KTMo",
+            authDomain: "b-pharm-all-in-one.firebaseapp.com",
+            databaseURL: "https://b-pharm-all-in-one-default-rtdb.firebaseio.com",
+            projectId: "b-pharm-all-in-one",
+            storageBucket: "b-pharm-all-in-one.firebasestorage.app",
+            messagingSenderId: "776475646692",
+            appId: "1:776475646692:web:e96162155e7c61259aeaf1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // TAB SWITCHING
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section-container');
+        const pageTitle = document.getElementById('page-title');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => b.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                pageTitle.innerText = btn.innerText.replace(/[📦🏷️]/g, '').trim();
+                
+                if(targetId === 'orders-section') fetchOrders();
+                if(targetId === 'products-section') fetchListedProducts();
+            });
+        });
+
+        // FETCH ORDERS
+        async function fetchOrders() {
+            const tableBody = document.getElementById('ordersTableBody');
+            try {
+                const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                tableBody.innerHTML = ""; 
+
+                if(querySnapshot.empty) {
+                    tableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No orders found.</td></tr>";
+                    return;
+                }
+                querySnapshot.forEach((documentSnapshot) => {
+                    const data = documentSnapshot.data();
+                    const docId = documentSnapshot.id;
+                    const utr = data.utrNumber || "No UTR found";
+                    const isVerified = data.status === "Verified";
+                    
+                    let statusBadgeClass = isVerified ? "status-verified" : "status-pending";
+                    let statusText = isVerified ? "Verified ✅" : "Pending Verification";
+                    
+                    let actionHtml = '';
+                    if(!isVerified) {
+                        actionHtml = `
+                            <br>
+                            <button class="btn-success" onclick="verifyAndNotify('${docId}', '${data.phone}', '${data.customerName}', '${data.product}', '${data.amount}')">
+                                💬 Verify & Send WA
+                            </button>
+                        `;
+                    }
+
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td class="customer-info"><strong>${data.customerName || "N/A"}</strong><span>📞 ${data.phone || "N/A"}</span><span>✉️ ${data.email || "N/A"}</span></td>
+                            <td><div class="address-box">${data.address || "N/A"}</div></td>
+                            <td><strong>${data.product || "Unknown"}</strong><br><span style="color:#28a745; font-weight:bold;">₹${data.amount || 0}</span></td>
+                            <td><span class="utr-text">${utr}</span></td>
+                            <td>
+                                <span class="status-badge ${statusBadgeClass}">${statusText}</span>
+                                ${actionHtml}
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (error) { tableBody.innerHTML = "<tr><td colspan='5' style='color:red; text-align:center;'>Error loading orders.</td></tr>"; }
+        }
+
+        // VERIFY ORDER
+        window.verifyAndNotify = async function(docId, phone, name, product, amount) {
+            if(confirm("Did you receive the payment? This will mark the order as VERIFIED and open WhatsApp.")) {
+                try {
+                    await updateDoc(doc(db, "orders", docId), { status: "Verified" });
+                    fetchOrders();
+                    
+                    let cleanPhone = phone.replace(/[^0-9]/g, "");
+                    if(cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
+                    
+                    let waMessage = `Hello ${name}! 🎉\n\nYour payment of ₹${amount} for *${product}* has been successfully verified! ✅\n\nWe have started processing your order and will update you with the tracking details once dispatched. 📦✨\n\nThank you for shopping with Sachin Photo Wala! 🤎`;
+                    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMessage)}`, '_blank');
+                } catch (error) { alert("Error updating order status in database."); }
+            }
+        }
+
+        // FETCH PRODUCTS
+        async function fetchListedProducts() {
+            const tableBody = document.getElementById('productsListBody');
+            try {
+                const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                tableBody.innerHTML = "";
+                if(querySnapshot.empty) { tableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No products listed yet.</td></tr>"; return; }
+                querySnapshot.forEach((documentSnapshot) => {
+                    const data = documentSnapshot.data();
+                    const docId = documentSnapshot.id;
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td><img src="${data.image || ''}" class="prod-img-preview" alt="img"></td>
+                            <td><strong>${data.name || 'Unnamed'}</strong></td>
+                            <td>${data.photoCount || 1} 📸</td>
+                            <td><span style="color:#b8926a; font-weight:bold;">₹${data.discountPrice || 0}</span></td>
+                            <td><button class="btn-danger" onclick="deleteProduct('${docId}')">🗑️ Remove</button></td>
+                        </tr>
+                    `;
+                });
+            } catch (error) { tableBody.innerHTML = "<tr><td colspan='5' style='color:red; text-align:center;'>Error loading products.</td></tr>"; }
+        }
+
+        window.deleteProduct = async function(docId) {
+            if(confirm("Are you sure you want to remove this product?")) {
+                try {
+                    await deleteDoc(doc(db, "products", docId));
+                    alert("Product removed successfully.");
+                    fetchListedProducts();
+                } catch (error) { alert("Failed to delete product."); }
+            }
+        }
+
+        // ADD PRODUCT (Now includes Photo Count)
+        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Adding..."; btn.disabled = true;
+
+            try {
+                await addDoc(collection(db, "products"), {
+                    name: document.getElementById('pName').value,
+                    originalPrice: Number(document.getElementById('pOriginalPrice').value),
+                    discountPrice: Number(document.getElementById('pDiscountPrice').value),
+                    photoCount: Number(document.getElementById('pPhotoCount').value),
+                    image: document.getElementById('pImage').value,
+                    createdAt: serverTimestamp()
+                });
+                alert("Product Added Successfully!");
+                document.getElementById('addProductForm').reset();
+                fetchListedProducts(); 
+            } catch (error) { alert("Failed to add product."); } 
+            finally { btn.innerText = "List Product to Store"; btn.disabled = false; }
+        });
+
+        fetchOrders();
+    </script>
+</body>
+</html>
