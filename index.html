@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sachin Photo Bala | Aesthetic Photo Frames</title>
+    <title>Sachin Photo Wala | Aesthetic Photo Frames</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
@@ -201,7 +201,7 @@
 <body>
 
     <header>
-        <div class="logo">Sachin <span>Photo Bala 📸</span></div>
+        <div class="logo">Sachin <span>Photo Wala 📸</span></div>
     </header>
 
     <section class="hero">
@@ -224,7 +224,7 @@
 
     <!-- Footer Links -->
     <footer>
-        <p>&copy; 2026 <strong>Sachin Photo Bala</strong>. Handcrafted with 🤎</p>
+        <p>&copy; 2026 <strong>Sachin Photo Wala</strong>. Handcrafted with 🤎</p>
         <div class="footer-links">
             <a onclick="openPopup('tcModal')">Terms & Conditions 📜</a>
             <a onclick="openPopup('returnModal')">Return Policy 🔄</a>
@@ -310,7 +310,7 @@
                 <div class="order-id-box" id="successUtrDisplay">123456789012</div>
                 
                 <button class="btn-whatsapp" onclick="sendPhotosOnWA()">Send Photos on WhatsApp 💬</button>
-                <button class="btn-order" onclick="closePopup('orderModal')" style="padding: 14px; background-color: var(--text-main); margin-top: 5px;">Close 🛍️</button>
+                 <button class="btn-order" onclick="closePopup('orderModal')" style="padding: 14px; background-color: var(--text-main); margin-top: 5px;">Close 🛍️</button>
             </div>
         </div>
     </div>
@@ -321,7 +321,7 @@
             <span class="close-btn" onclick="closePopup('tcModal')">&times;</span>
             <div class="checkout-header"><h3>Terms & Conditions 📜</h3></div>
             <div class="modal-body-scroll">
-                <h4>1. General Information</h4><p>Welcome to Sachin Photo Bala. By placing an order, you agree to the terms listed below.</p>
+                <h4>1. General Information</h4><p>Welcome to Sachin Photo Wala. By placing an order, you agree to the terms listed below.</p>
                 <h4>2. Ordering & Payment</h4><p>All orders must be prepaid via UPI QR Code and require manual UTR verification from the admin panel.</p>
                 <h4>3. Shipping & Delivery</h4><p>Orders are processed after payment verification and dispatched within 3-5 business days.</p>
                 <h4>4. Customization</h4><p>Please ensure that all photos provided for custom frames are high resolution and sent directly to us on WhatsApp after the success screen.</p>
@@ -387,14 +387,18 @@
             document.getElementById('orderSummaryText').innerText = `${productName} — ₹${amount}`;
             document.getElementById('displayAmount').innerText = amount;
             
+            // Dynamic UPI Setup with Real Name and Transaction ID + MC to prevent Risk Policy Block
             const upiId = "6264688261@okbizaxis";
             const payeeName = "Sachin Singh Lodhi"; 
-            const transactionId = "TXN" + Date.now(); 
-            const upiQueryString = `pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=Payment%20for%20Frame&tr=${transactionId}`;
+            const transactionId = "SPW" + Date.now(); 
             
+            const upiQueryString = `pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&mc=5999&tn=Photo%20Frame%20Order&tr=${transactionId}`;
+            
+            // Generate QR Code
             const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(`upi://pay?${upiQueryString}`)}`;
             document.getElementById('dynamicUpiQr').src = qrUrl;
 
+            // Generate App Specific Deep Links
             document.getElementById('linkGpay').href = `tez://upi/pay?${upiQueryString}`;
             document.getElementById('linkPhonepe').href = `phonepe://pay?${upiQueryString}`;
             document.getElementById('linkPaytm').href = `paytmmp://pay?${upiQueryString}`;
@@ -481,10 +485,9 @@
             finally { btn.innerText = "Confirm Order ✨"; btn.disabled = false; }
         });
 
-        // WhatsApp number dynamically updated
         window.sendPhotosOnWA = function() {
             const sellerPhone = "916264688261"; 
-            const message = `Hello Sachin Photo Bala! 📸\n\nI just placed an order for *${currentProduct}*.\nMy Payment UTR No is: *${currentUtr}*.\n\nHere are the ${currentPhotoCount} photo(s) for my customized frame:`;
+            const message = `Hello Sachin Photo Wala! 📸\n\nI just placed an order for *${currentProduct}*.\nMy Payment UTR No is: *${currentUtr}*.\n\nHere are the ${currentPhotoCount} photo(s) for my customized frame:`;
             window.open(`https://wa.me/${sellerPhone}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
